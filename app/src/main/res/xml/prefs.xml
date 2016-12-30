@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+        android:key="TILE_WIDTH"
+        android:title="@string/tile_width_title"
+        android:summary="@string/tile_width_summary"
+        android:dialogTitle="@string/set_tile_width"
+        android:entries="@array/tile_sizes_array"
+        android:entryValues="@array/tile_sizes_array"
+        />
+
+    <ListPreference
+        android:key="TILE_HEIGHT"
+        android:title="@string/tile_height_title"
+        android:summary="@string/tile_height_summary"
+        android:dialogTitle="@string/set_tile_height"
+        android:entries="@array/tile_sizes_array"
+        android:entryValues="@array/tile_sizes_array"
+        />
+
+    <ListPreference
+        android:key="TILE_TYPE"
+        android:title="@string/tile_type_title"
+        android:summary="@string/tile_type_summary"
+        android:dialogTitle="@string/set_tile_type"
+        android:entries="@array/tile_types_array"
+        android:entryValues="@array/tile_types_array"
+        />
+
+</PreferenceScreen>
