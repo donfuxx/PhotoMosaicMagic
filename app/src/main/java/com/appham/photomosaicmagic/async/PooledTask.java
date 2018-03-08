@@ -1,4 +1,4 @@
-package com.appham.mosaicmagic.async;
+package com.appham.photomosaicmagic.async;
 
 import android.os.AsyncTask;
 

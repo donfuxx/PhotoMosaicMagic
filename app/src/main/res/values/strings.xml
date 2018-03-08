@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Mosaic Magic</string>
+    <string name="app_name">Photo Mosaic Magic</string>
     <string name="select_image">Select image</string>
     <string name="image_loaded">Image loaded</string>
     <string name="load_image">Load Image</string>

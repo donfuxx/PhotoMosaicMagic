@@ -1,12 +1,12 @@
-package com.appham.mosaicmagic.view;
+package com.appham.photomosaicmagic.view;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 
-import com.appham.mosaicmagic.BaseActivity;
-import com.appham.mosaicmagic.Prefs;
-import com.appham.mosaicmagic.R;
+import com.appham.photomosaicmagic.BaseActivity;
+import com.appham.photomosaicmagic.Prefs;
+import com.appham.photomosaicmagic.R;
 
 /**
  * @author Thomas Fuchs-Martin <t.fuchsmartin@gmail.com>

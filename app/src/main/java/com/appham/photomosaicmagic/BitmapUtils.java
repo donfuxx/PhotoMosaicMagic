@@ -1,4 +1,4 @@
-package com.appham.mosaicmagic;
+package com.appham.photomosaicmagic;
 
 import android.content.ContentResolver;
 import android.graphics.Bitmap;
@@ -13,8 +13,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
 
-import com.appham.mosaicmagic.model.SlicedBitmap;
-import com.appham.mosaicmagic.model.Tile;
+import com.appham.photomosaicmagic.model.SlicedBitmap;
+import com.appham.photomosaicmagic.model.Tile;
 
 import java.io.IOException;
 import java.io.InputStream;

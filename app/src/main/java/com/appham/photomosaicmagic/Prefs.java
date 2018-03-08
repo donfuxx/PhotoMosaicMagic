@@ -1,8 +1,8 @@
-package com.appham.mosaicmagic;
+package com.appham.photomosaicmagic;
 
 import android.content.SharedPreferences;
 
-import com.appham.mosaicmagic.model.TileType;
+import com.appham.photomosaicmagic.model.TileType;
 
 /**
  * @author Thomas Fuchs-Martin <t.fuchsmartin@gmail.com>

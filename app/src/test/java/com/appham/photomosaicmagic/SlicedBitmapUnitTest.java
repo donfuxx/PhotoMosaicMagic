@@ -1,11 +1,11 @@
-package com.appham.mosaicmagic;
+package com.appham.photomosaicmagic;
 
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 
-import com.appham.mosaicmagic.model.SlicedBitmap;
-import com.appham.mosaicmagic.model.Tile;
-import com.appham.mosaicmagic.model.TileType;
+import com.appham.photomosaicmagic.model.SlicedBitmap;
+import com.appham.photomosaicmagic.model.Tile;
+import com.appham.photomosaicmagic.model.TileType;
 
 import junit.framework.TestCase;
 

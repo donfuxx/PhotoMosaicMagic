@@ -1,8 +1,8 @@
-package com.appham.mosaicmagic.view;
+package com.appham.photomosaicmagic.view;
 
 import android.graphics.Bitmap;
 
-import com.appham.mosaicmagic.BaseActivity;
+import com.appham.photomosaicmagic.BaseActivity;
 
 /**
  * @author thomas

@@ -1,4 +1,4 @@
-package com.appham.mosaicmagic.view;
+package com.appham.photomosaicmagic.view;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.appham.mosaicmagic.R;
-import com.appham.mosaicmagic.presenter.MosaicPresenter;
+import com.appham.photomosaicmagic.R;
+import com.appham.photomosaicmagic.presenter.MosaicPresenter;
 
 /**
  * The main fragment with the mosaic image view

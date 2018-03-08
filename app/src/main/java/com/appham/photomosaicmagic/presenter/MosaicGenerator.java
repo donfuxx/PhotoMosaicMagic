@@ -1,11 +1,11 @@
-package com.appham.mosaicmagic.presenter;
+package com.appham.photomosaicmagic.presenter;
 
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 
-import com.appham.mosaicmagic.BaseActivity;
-import com.appham.mosaicmagic.model.SlicedBitmap;
+import com.appham.photomosaicmagic.BaseActivity;
+import com.appham.photomosaicmagic.model.SlicedBitmap;
 
 /**
  * @author Thomas Fuchs-Martin <t.fuchsmartin@gmail.com>

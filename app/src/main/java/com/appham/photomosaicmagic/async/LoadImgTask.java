@@ -1,4 +1,4 @@
-package com.appham.mosaicmagic.async;
+package com.appham.photomosaicmagic.async;
 
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -7,9 +7,9 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.appham.mosaicmagic.BitmapUtils;
-import com.appham.mosaicmagic.R;
-import com.appham.mosaicmagic.presenter.MosaicGenerator;
+import com.appham.photomosaicmagic.BitmapUtils;
+import com.appham.photomosaicmagic.R;
+import com.appham.photomosaicmagic.presenter.MosaicGenerator;
 
 /**
  * @author Thomas Fuchs-Martin <t.fuchsmartin@gmail.com>

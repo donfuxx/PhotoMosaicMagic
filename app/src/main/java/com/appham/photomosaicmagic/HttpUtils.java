@@ -1,4 +1,4 @@
-package com.appham.mosaicmagic;
+package com.appham.photomosaicmagic;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.WorkerThread;

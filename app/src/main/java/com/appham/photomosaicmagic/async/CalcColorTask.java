@@ -1,11 +1,11 @@
-package com.appham.mosaicmagic.async;
+package com.appham.photomosaicmagic.async;
 
 import android.support.annotation.NonNull;
 
-import com.appham.mosaicmagic.BitmapUtils;
-import com.appham.mosaicmagic.model.SlicedBitmap;
-import com.appham.mosaicmagic.model.Tile;
-import com.appham.mosaicmagic.presenter.MosaicGenerator;
+import com.appham.photomosaicmagic.BitmapUtils;
+import com.appham.photomosaicmagic.model.SlicedBitmap;
+import com.appham.photomosaicmagic.model.Tile;
+import com.appham.photomosaicmagic.presenter.MosaicGenerator;
 
 import java.util.Locale;
 

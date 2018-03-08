@@ -1,4 +1,4 @@
-package com.appham.mosaicmagic;
+package com.appham.photomosaicmagic;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,8 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.appham.mosaicmagic.view.MosaicFragment;
-import com.appham.mosaicmagic.view.SettingsFragment;
+import com.appham.photomosaicmagic.view.MosaicFragment;
+import com.appham.photomosaicmagic.view.SettingsFragment;
 
 public class BaseActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.appham.mosaicmagic.model;
+package com.appham.photomosaicmagic.model;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;

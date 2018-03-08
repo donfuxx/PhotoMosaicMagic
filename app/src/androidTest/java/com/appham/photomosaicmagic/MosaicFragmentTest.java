@@ -1,4 +1,4 @@
-package com.appham.mosaicmagic;
+package com.appham.photomosaicmagic;
 
 import android.content.Intent;
 import android.support.test.espresso.intent.Intents;

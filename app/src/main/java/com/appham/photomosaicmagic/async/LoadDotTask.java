@@ -1,15 +1,15 @@
-package com.appham.mosaicmagic.async;
+package com.appham.photomosaicmagic.async;
 
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.appham.mosaicmagic.HttpUtils;
-import com.appham.mosaicmagic.R;
-import com.appham.mosaicmagic.model.SlicedBitmap;
-import com.appham.mosaicmagic.model.Tile;
-import com.appham.mosaicmagic.presenter.MosaicGenerator;
+import com.appham.photomosaicmagic.HttpUtils;
+import com.appham.photomosaicmagic.R;
+import com.appham.photomosaicmagic.model.SlicedBitmap;
+import com.appham.photomosaicmagic.model.Tile;
+import com.appham.photomosaicmagic.presenter.MosaicGenerator;
 
 import java.net.HttpURLConnection;
 

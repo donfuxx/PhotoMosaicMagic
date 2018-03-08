@@ -1,10 +1,10 @@
-package com.appham.mosaicmagic.view;
+package com.appham.photomosaicmagic.view;
 
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.View;
 
-import com.appham.mosaicmagic.BaseActivity;
+import com.appham.photomosaicmagic.BaseActivity;
 
 /**
  * @author Thomas Fuchs-Martin <t.fuchsmartin@gmail.com>

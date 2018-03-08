@@ -1,16 +1,16 @@
-package com.appham.mosaicmagic.presenter;
+package com.appham.photomosaicmagic.presenter;
 
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 
-import com.appham.mosaicmagic.BaseActivity;
-import com.appham.mosaicmagic.BitmapUtils;
-import com.appham.mosaicmagic.async.BitmapSliceTask;
-import com.appham.mosaicmagic.async.CalcColorTask;
-import com.appham.mosaicmagic.async.LoadImgTask;
-import com.appham.mosaicmagic.model.SlicedBitmap;
-import com.appham.mosaicmagic.view.MosaicView;
+import com.appham.photomosaicmagic.BaseActivity;
+import com.appham.photomosaicmagic.BitmapUtils;
+import com.appham.photomosaicmagic.async.BitmapSliceTask;
+import com.appham.photomosaicmagic.async.CalcColorTask;
+import com.appham.photomosaicmagic.async.LoadImgTask;
+import com.appham.photomosaicmagic.model.SlicedBitmap;
+import com.appham.photomosaicmagic.view.MosaicView;
 
 /**
  * The "middle man" between the mosaic view and the mosaic models.
