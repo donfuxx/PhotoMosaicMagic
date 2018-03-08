@@ -8,9 +8,11 @@ import android.widget.Toast;
 import com.appham.photomosaicmagic.BaseActivity;
 import com.appham.photomosaicmagic.BitmapUtils;
 import com.appham.photomosaicmagic.R;
-import com.appham.photomosaicmagic.async.CalcColorTask;
 import com.appham.photomosaicmagic.model.SlicedBitmap;
+import com.appham.photomosaicmagic.model.Tile;
 import com.appham.photomosaicmagic.view.MosaicView;
+
+import java.util.Locale;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -99,7 +101,41 @@ public class MosaicPresenter implements MosaicGenerator {
      */
     @Override
     public void calcAverageColors(@NonNull SlicedBitmap slicedBitmap) {
-        new CalcColorTask(this).executePool(slicedBitmap);
+        Observable.fromCallable(() -> {
+            slicedBitmap.resetLoadedDotsRowCount();
+
+            for (Tile tile : slicedBitmap.getLastRow()) {
+
+                int color = BitmapUtils.calcAverageColor(tile.getBitmap());
+
+                String colorCode = String.format(Locale.ROOT, "%06X",
+                        (0xFFFFFF & color));
+
+                tile.setAvgColorInt(color);
+
+                tile.setAvgColor(colorCode);
+
+                BitmapUtils.addTileDotBitmap(tile);
+
+                slicedBitmap.incrLoadedDotsRowCount();
+
+            }
+            return slicedBitmap;
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe((resultSlicedBitmap) -> {
+                    // update image once all tiles in the current row have a dot loaded
+                    if (resultSlicedBitmap.getLoadedDotsRowCount() == resultSlicedBitmap.getCols()) {
+                        updateMosaic(resultSlicedBitmap);
+
+                        // calculate colors for the next row
+                        if (resultSlicedBitmap.getDrawnRowsCount() < resultSlicedBitmap.getRows()) {
+                            calcAverageColors(resultSlicedBitmap);
+                        } else { // if no more rows recycle the bitmap
+                            resultSlicedBitmap.getBitmap().recycle();
+                        }
+                    }
+                });
     }
 
     /**
