@@ -8,7 +8,6 @@ import android.widget.Toast;
 import com.appham.photomosaicmagic.BaseActivity;
 import com.appham.photomosaicmagic.BitmapUtils;
 import com.appham.photomosaicmagic.R;
-import com.appham.photomosaicmagic.async.BitmapSliceTask;
 import com.appham.photomosaicmagic.async.CalcColorTask;
 import com.appham.photomosaicmagic.model.SlicedBitmap;
 import com.appham.photomosaicmagic.view.MosaicView;
@@ -78,8 +77,17 @@ public class MosaicPresenter implements MosaicGenerator {
      */
     @Override
     public void sliceImage(@NonNull Bitmap bitmap, int tileWidth, int tileHeight) {
-        new BitmapSliceTask(this).executePool(new SlicedBitmap(bitmap, tileWidth, tileHeight,
-                getBaseActivity().getPrefs().getTileType()));
+
+        Observable.fromCallable(() -> {
+            SlicedBitmap slicedBitmap = new SlicedBitmap(bitmap, tileWidth, tileHeight,
+                    baseActivity.getPrefs().getTileType());
+
+            slicedBitmap.sliceNextRow();
+
+            return slicedBitmap;
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::calcAverageColors);
 
         // set original image as the mosaic image
         mosaicBitmap = bitmap.copy(bitmap.getConfig(), true);
