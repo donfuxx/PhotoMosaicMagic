@@ -3,14 +3,19 @@ package com.appham.photomosaicmagic.presenter;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.widget.Toast;
 
 import com.appham.photomosaicmagic.BaseActivity;
 import com.appham.photomosaicmagic.BitmapUtils;
+import com.appham.photomosaicmagic.R;
 import com.appham.photomosaicmagic.async.BitmapSliceTask;
 import com.appham.photomosaicmagic.async.CalcColorTask;
-import com.appham.photomosaicmagic.async.LoadImgTask;
 import com.appham.photomosaicmagic.model.SlicedBitmap;
 import com.appham.photomosaicmagic.view.MosaicView;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * The "middle man" between the mosaic view and the mosaic models.
@@ -34,7 +39,38 @@ public class MosaicPresenter implements MosaicGenerator {
      */
     @Override
     public void loadImage(@NonNull Uri data) {
-        new LoadImgTask(this).executePool(data);
+        int tileWidth = baseActivity.getPrefs().getTileWidth();
+        int tileHeight = baseActivity.getPrefs().getTileHeight();
+
+        Observable.fromCallable(() -> {
+
+            try {
+
+                // get sampled bitmap
+                Bitmap bitmap = BitmapUtils.decodeSampledStream(data,
+                        baseActivity.getContentResolver(), getDisplayW(), getDisplayH());
+
+                // scale to fit tile sizes if needed
+                if (bitmap != null) {
+                    return BitmapUtils.scaleForTileSize(bitmap, tileWidth, tileHeight);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe((bitmap) -> {
+                    if (bitmap == null) {
+                        Toast.makeText(baseActivity, R.string.image_not_loaded,
+                                Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                    sliceImage(bitmap, tileWidth, tileHeight);
+                });
     }
 
     /**
