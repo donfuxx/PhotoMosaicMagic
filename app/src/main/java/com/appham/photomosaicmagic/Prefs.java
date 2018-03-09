@@ -21,9 +21,9 @@ public class Prefs {
     }
 
     public void updatePrefs() {
-        this.tileWidth = Integer.parseInt(sharedPref.getString(PrefKeys.TILE_WIDTH.name(), "32"));
-        this.tileHeight = Integer.parseInt(sharedPref.getString(PrefKeys.TILE_HEIGHT.name(), "32"));
-        this.tilePadding = Integer.parseInt(sharedPref.getString(PrefKeys.TILE_PADDING.name(), "2"));
+        this.tileWidth = Integer.parseInt(sharedPref.getString(PrefKeys.TILE_WIDTH.name(), "30"));
+        this.tileHeight = Integer.parseInt(sharedPref.getString(PrefKeys.TILE_HEIGHT.name(), "30"));
+        this.tilePadding = Integer.parseInt(sharedPref.getString(PrefKeys.TILE_PADDING.name(), "1"));
         this.tileType = TileType.valueOf(sharedPref.getString(PrefKeys.TILE_TYPE.name(), TileType.CIRCLE.name()));
     }
 
