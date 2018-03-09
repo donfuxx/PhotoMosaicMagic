@@ -21,6 +21,15 @@
         />
 
     <ListPreference
+        android:key="TILE_PADDING"
+        android:title="@string/tile_padding_title"
+        android:summary="@string/tile_padding_summary"
+        android:dialogTitle="@string/set_tile_padding"
+        android:entries="@array/tile_padding_array"
+        android:entryValues="@array/tile_padding_array"
+        />
+
+    <ListPreference
         android:key="TILE_TYPE"
         android:title="@string/tile_type_title"
         android:summary="@string/tile_type_summary"

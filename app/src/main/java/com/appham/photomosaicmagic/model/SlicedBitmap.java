@@ -16,6 +16,7 @@ public class SlicedBitmap {
     private final Bitmap bitmap;
     private final int tileWidth;
     private final int tileHeight;
+    private final int tilePadding;
     private final int rows;
     private final int cols;
     private final int sliceCount;
@@ -38,10 +39,11 @@ public class SlicedBitmap {
      */
     private int drawnRowsCount;
 
-    public SlicedBitmap(Bitmap bitmap, int tileWidth, int tileHeight, TileType tileType) {
+    public SlicedBitmap(Bitmap bitmap, int tileWidth, int tileHeight, int padding, TileType tileType) {
         this.bitmap = bitmap;
         this.tileWidth = tileWidth;
         this.tileHeight = tileHeight;
+        this.tilePadding = padding;
         this.tileType = tileType;
         this.rows = bitmap.getHeight() / tileHeight;
         this.cols = bitmap.getWidth() / tileWidth;
@@ -91,7 +93,7 @@ public class SlicedBitmap {
             for (int i = 0; i < cols; i++) {
                 tiles.add(new Tile(
                         Bitmap.createBitmap(bitmap, i * tileWidth, index * tileHeight, tileWidth, tileHeight),
-                        tileType));
+                        tilePadding, tileType));
             }
 
             return tiles;

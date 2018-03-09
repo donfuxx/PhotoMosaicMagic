@@ -41,6 +41,7 @@ public class MosaicPresenter implements MosaicContract.Presenter {
     public void loadImage(@NonNull Uri data) {
         int tileWidth = baseActivity.getPrefs().getTileWidth();
         int tileHeight = baseActivity.getPrefs().getTileHeight();
+        int tilePadding = baseActivity.getPrefs().getTilePadding();
 
         Observable.fromCallable(() -> {
 
@@ -63,7 +64,7 @@ public class MosaicPresenter implements MosaicContract.Presenter {
                         return;
                     }
 
-                    sliceImage(bitmap, tileWidth, tileHeight);
+                    sliceImage(bitmap, tileWidth, tileHeight, tilePadding);
                 }, Throwable::printStackTrace);
     }
 
@@ -71,10 +72,10 @@ public class MosaicPresenter implements MosaicContract.Presenter {
      * 2. Step: slice the image bitmap into tiles
      */
     @Override
-    public void sliceImage(@NonNull Bitmap bitmap, int tileWidth, int tileHeight) {
+    public void sliceImage(@NonNull Bitmap bitmap, int tileWidth, int tileHeight, int tilePadding) {
 
         Observable.fromCallable(() -> {
-            SlicedBitmap slicedBitmap = new SlicedBitmap(bitmap, tileWidth, tileHeight,
+            SlicedBitmap slicedBitmap = new SlicedBitmap(bitmap, tileWidth, tileHeight, tilePadding,
                     baseActivity.getPrefs().getTileType());
 
             slicedBitmap.sliceNextRow();

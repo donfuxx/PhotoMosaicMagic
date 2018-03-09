@@ -9,12 +9,15 @@
     <string name="action_settings">Settings</string>
     <string name="set_tile_height">Set the mosaic tile heigth</string>
     <string name="set_tile_width">Set the mosaic tile width</string>
+    <string name="set_tile_padding">Set the mosaic tile padding</string>
     <string name="set_tile_type">Set the mosaic tile type</string>
     <string name="tile_height_summary">The height of the mosaic tiles</string>
     <string name="tile_width_summary">The width of the mosaic tiles</string>
+    <string name="tile_padding_summary">The padding of the mosaic tiles</string>
     <string name="tile_type_summary">The type of the mosaic tiles</string>
     <string name="tile_height_title">Tile height</string>
     <string name="tile_width_title">Tile width</string>
+    <string name="tile_padding_title">Tile padding</string>
     <string name="tile_type_title">Tile type</string>
     <string name="download">Download</string>
     <string name="load_image_first">You need to load an image first!</string>

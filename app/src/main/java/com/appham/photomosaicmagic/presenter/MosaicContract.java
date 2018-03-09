@@ -43,7 +43,7 @@ public interface MosaicContract {
 
         void loadImage(@NonNull Uri data);
 
-        void sliceImage(@NonNull Bitmap bitmap, int tileWidth, int tileHeight);
+        void sliceImage(@NonNull Bitmap bitmap, int tileWidth, int tileHeight, int tilePadding);
 
         void calcAverageColors(@NonNull SlicedBitmap slicedBitmap);
 

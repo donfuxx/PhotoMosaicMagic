@@ -15,12 +15,13 @@ public class Tile {
     private Bitmap dot;
     private String avgColor;
     private int avgColorInt;
-    private int padding = 2;
+    private int padding;
     private int bgColor = Color.WHITE;
     private TileType tileType = TileType.CIRCLE;
 
-    public Tile(Bitmap bitmap, TileType tileType) {
+    public Tile(Bitmap bitmap, int padding, TileType tileType) {
         this.bitmap = bitmap;
+        this.padding = padding;
         this.tileType = tileType;
     }
 
