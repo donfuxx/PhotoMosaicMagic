@@ -10,7 +10,6 @@ import com.appham.photomosaicmagic.BitmapUtils;
 import com.appham.photomosaicmagic.R;
 import com.appham.photomosaicmagic.model.SlicedBitmap;
 import com.appham.photomosaicmagic.model.Tile;
-import com.appham.photomosaicmagic.view.MosaicView;
 
 import java.util.Locale;
 
@@ -24,15 +23,15 @@ import io.reactivex.schedulers.Schedulers;
  * @author Thomas Fuchs-Martin <t.fuchsmartin@gmail.com>
  */
 
-public class MosaicPresenter implements MosaicGenerator {
+public class MosaicPresenter implements MosaicContract.Presenter {
 
-    private MosaicView mosaicView;
+    private MosaicContract.View view;
     private final BaseActivity baseActivity;
     private Bitmap mosaicBitmap;
 
-    public MosaicPresenter(@NonNull MosaicView mosaicView) {
-        this.mosaicView = mosaicView;
-        this.baseActivity = mosaicView.getBaseActivity();
+    public MosaicPresenter(@NonNull MosaicContract.View view) {
+        this.view = view;
+        this.baseActivity = view.getBaseActivity();
     }
 
     /**
@@ -93,7 +92,7 @@ public class MosaicPresenter implements MosaicGenerator {
 
         // set original image as the mosaic image
         mosaicBitmap = bitmap.copy(bitmap.getConfig(), true);
-        mosaicView.setMosaicBitmap(mosaicBitmap);
+        view.setMosaicBitmap(mosaicBitmap);
     }
 
     /**
@@ -146,8 +145,8 @@ public class MosaicPresenter implements MosaicGenerator {
 
         BitmapUtils.drawMosaicOnBitmap(mosaicBitmap, slicedBitmap);
 
-        if (mosaicView != null) {
-            mosaicView.setMosaicBitmap(mosaicBitmap);
+        if (view != null) {
+            view.setMosaicBitmap(mosaicBitmap);
         }
     }
 
@@ -158,12 +157,12 @@ public class MosaicPresenter implements MosaicGenerator {
 
     @Override
     public int getDisplayW() {
-        return mosaicView.getDisplayW();
+        return view.getDisplayW();
     }
 
     @Override
     public int getDisplayH() {
-        return mosaicView.getDisplayH();
+        return view.getDisplayH();
     }
 
     @Override
@@ -171,6 +170,6 @@ public class MosaicPresenter implements MosaicGenerator {
         if (mosaicBitmap != null && !mosaicBitmap.isRecycled()) {
             mosaicBitmap.recycle();
         }
-        mosaicView = null;
+        view = null;
     }
 }

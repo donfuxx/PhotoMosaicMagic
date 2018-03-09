@@ -4,12 +4,12 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
 import com.appham.photomosaicmagic.R;
+import com.appham.photomosaicmagic.presenter.MosaicContract;
 import com.appham.photomosaicmagic.presenter.MosaicPresenter;
 
 /**
@@ -17,24 +17,23 @@ import com.appham.photomosaicmagic.presenter.MosaicPresenter;
  *
  * @author Thomas Fuchs-Martin <t.fuchsmartin@gmail.com>
  */
-public class MosaicFragment extends BaseFragment implements MosaicView {
+public class MosaicFragment extends BaseFragment implements MosaicContract.View {
 
     public static final String TAG = "MosaicFragment";
     private ImageView imgMosaic;
     private Button btnLoadImg;
     private int displayW;
     private int displayH;
-    private Bitmap mosaicBitmap;
     private MosaicPresenter presenter;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public android.view.View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_mosaic, container, false);
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(android.view.View view, @Nullable Bundle savedInstanceState) {
 
         this.setRetainInstance(true);
 
@@ -43,22 +42,22 @@ public class MosaicFragment extends BaseFragment implements MosaicView {
         displayH = getResources().getDisplayMetrics().heightPixels;
 
         // init the main mosaic image view
-        imgMosaic = (ImageView) view.findViewById(R.id.imgMosaic);
-        mosaicBitmap = Bitmap.createBitmap(displayW, displayH,
+        imgMosaic = view.findViewById(R.id.imgMosaic);
+        Bitmap mosaicBitmap = Bitmap.createBitmap(displayW, displayH,
                 Bitmap.Config.ARGB_8888);
         imgMosaic.setImageBitmap(mosaicBitmap);
-        imgMosaic.setOnClickListener(new View.OnClickListener() {
+        imgMosaic.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(android.view.View view) {
                 toggleLoadImgButtonVisibility();
             }
         });
 
         // init image loading button
-        btnLoadImg = (Button) view.findViewById(R.id.btnLoadImg);
-        btnLoadImg.setOnClickListener(new View.OnClickListener() {
+        btnLoadImg = view.findViewById(R.id.btnLoadImg);
+        btnLoadImg.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(android.view.View view) {
                 getBaseActivity().selectImg();
                 hideLoadImgButton();
             }
@@ -78,17 +77,17 @@ public class MosaicFragment extends BaseFragment implements MosaicView {
 
     @Override
     public void hideLoadImgButton() {
-        btnLoadImg.setVisibility(View.GONE);
+        btnLoadImg.setVisibility(android.view.View.GONE);
     }
 
     @Override
     public void showLoadImgButton() {
-        btnLoadImg.setVisibility(View.VISIBLE);
+        btnLoadImg.setVisibility(android.view.View.VISIBLE);
     }
 
     @Override
     public void toggleLoadImgButtonVisibility() {
-        if (btnLoadImg.getVisibility() == View.VISIBLE) {
+        if (btnLoadImg.getVisibility() == android.view.View.VISIBLE) {
             hideLoadImgButton();
         } else {
             showLoadImgButton();

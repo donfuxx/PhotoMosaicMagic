@@ -4,23 +4,25 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
+import com.appham.photomosaicmagic.presenter.MosaicContract;
+
 /**
  * @author thomas
  */
 
-public enum TileType implements CanvasDrawing {
+public enum TileType implements MosaicContract.Model {
 
     CIRCLE(Canvas::drawOval),
     SQUARE(Canvas::drawRect);
 
-    private final CanvasDrawing canvasDrawing;
+    private final MosaicContract.Model model;
 
-    TileType(CanvasDrawing canvasDrawing) {
-        this.canvasDrawing = canvasDrawing;
+    TileType(MosaicContract.Model model) {
+        this.model = model;
     }
 
     @Override
     public void draw(Canvas canvas, RectF rectF, Paint paint) {
-        this.canvasDrawing.draw(canvas, rectF, paint);
+        this.model.draw(canvas, rectF, paint);
     }
 }
