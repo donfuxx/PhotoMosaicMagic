@@ -1,13 +1,16 @@
 package com.appham.photomosaicmagic;
 
 import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +37,7 @@ public class BaseActivity extends AppCompatActivity {
     private static final int REQUEST_WRITE_EXTERNAL_STORAGE = 1;
     private Prefs prefs;
     private MosaicFragment mosaicFragment;
+    private Snackbar snackbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,12 +81,39 @@ public class BaseActivity extends AppCompatActivity {
                 selectImg();
                 return true;
 
+            // User chose the info icon, show info snackbar with Google Play Store button
+            case R.id.action_about:
+
+                if (snackbar == null || !snackbar.isShown()) {
+                    snackbar = Snackbar.make(findViewById(android.R.id.content),
+                            R.string.app_developed_by, Snackbar.LENGTH_LONG)
+                            .setDuration(10000)
+                            .setAction(R.string.google_play_store, view -> {
+                                try {
+                                    openStore(Uri.parse(
+                                            "market://dev?id=Thomas+Fuchs-Martin"));
+                                } catch (ActivityNotFoundException e) {
+                                    openStore(Uri.parse(
+                                            "https://play.google.com/store/apps/developer?id=Thomas+Fuchs-Martin"));
+                                }
+                            });
+                    snackbar.show();
+                }
+
+                return true;
+
             // user selected nothing
             default:
 
                 return super.onOptionsItemSelected(item);
 
         }
+    }
+
+    private void openStore(Uri uri) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(uri);
+        startActivity(intent);
     }
 
     private void showSettingsFragment() {

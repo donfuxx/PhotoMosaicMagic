@@ -20,4 +20,7 @@
     <string name="load_image_first">You need to load an image first!</string>
     <string name="grant_write_permission_first">You need to grant the write external storage permission to download the image!</string>
     <string name="image_downloaded">The image has been downloaded to the folder: </string>
+    <string name="menu_about">about this app</string>
+    <string name="app_developed_by">App developed by Thomas Fuchs-Martin</string>
+    <string name="google_play_store">GOOGLE PLAY STORE</string>
 </resources>
