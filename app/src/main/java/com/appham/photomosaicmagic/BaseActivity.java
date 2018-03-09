@@ -22,9 +22,9 @@ import android.widget.Toast;
 import com.appham.photomosaicmagic.view.MosaicFragment;
 import com.appham.photomosaicmagic.view.SettingsFragment;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.nio.ByteBuffer;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -217,14 +217,14 @@ public class BaseActivity extends AppCompatActivity {
                     .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), folderName);
             path.mkdirs();
 
-            String filename = folderName + "_" + bitmap.getByteCount() + ".jpg";
+            String filename = folderName + "_" + bitmap.hashCode() + ".jpg";
             File file = new File(path, filename);
             FileOutputStream stream;
 
-            int size = bitmap.getRowBytes() * bitmap.getHeight();
-            ByteBuffer byteBuffer = ByteBuffer.allocate(size);
-            bitmap.copyPixelsToBuffer(byteBuffer);
-            byte[] bytes = byteBuffer.array();
+            ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteStream);
+            byte[] bytes = byteStream.toByteArray();
+            byteStream.close();
 
             stream = new FileOutputStream(file);
             stream.write(bytes);
