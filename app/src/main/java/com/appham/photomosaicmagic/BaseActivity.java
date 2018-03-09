@@ -1,8 +1,15 @@
 package com.appham.photomosaicmagic;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -12,10 +19,19 @@ import android.widget.Toast;
 import com.appham.photomosaicmagic.view.MosaicFragment;
 import com.appham.photomosaicmagic.view.SettingsFragment;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.nio.ByteBuffer;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 public class BaseActivity extends AppCompatActivity {
 
     private static final String TAG = "BaseActivity";
     private static final int IMG_REQUEST_CODE = 1;
+    private static final int REQUEST_WRITE_EXTERNAL_STORAGE = 1;
     private Prefs prefs;
     private MosaicFragment mosaicFragment;
 
@@ -57,7 +73,7 @@ public class BaseActivity extends AppCompatActivity {
                 showMosaicFragment();
 
                 // show select image chooser
-                mosaicFragment.hideLoadImgButton();
+                mosaicFragment.hideButtons();
                 selectImg();
                 return true;
 
@@ -115,7 +131,7 @@ public class BaseActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), R.string.no_image_chosen,
                     Toast.LENGTH_LONG).show();
 
-            mosaicFragment.showLoadImgButton();
+            mosaicFragment.showButtons();
         }
 
         super.onActivityResult(requestCode, resultCode, data);
@@ -148,6 +164,77 @@ public class BaseActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), getString(R.string.select_image),
                 Toast.LENGTH_SHORT).show();
 
+    }
+
+    public void downloadImg(@NonNull Bitmap bitmap) {
+
+        // check for write storage permission first
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Permission is not granted, request the permission
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    REQUEST_WRITE_EXTERNAL_STORAGE);
+
+            return;
+        }
+
+        Observable.fromCallable(() -> {
+            String folderName = getString(R.string.app_name).replaceAll("\\s+", "_");
+            File path = new File(Environment
+                    .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), folderName);
+            path.mkdirs();
+
+            String filename = folderName + "_" + bitmap.getByteCount() + ".jpg";
+            File file = new File(path, filename);
+            FileOutputStream stream;
+
+            int size = bitmap.getRowBytes() * bitmap.getHeight();
+            ByteBuffer byteBuffer = ByteBuffer.allocate(size);
+            bitmap.copyPixelsToBuffer(byteBuffer);
+            byte[] bytes = byteBuffer.array();
+
+            stream = new FileOutputStream(file);
+            stream.write(bytes);
+            stream.close();
+
+            return folderName;
+
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe((folderName) -> {
+                            Toast.makeText(this,
+                                    getString(R.string.image_downloaded) + " " + folderName,
+                                    Toast.LENGTH_LONG).show();
+                        },
+                        Throwable::printStackTrace);
+
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_WRITE_EXTERNAL_STORAGE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, download img!
+                    Bitmap bitmap = mosaicFragment.getPresenter().getMosaicBitmap();
+                    if (bitmap != null) {
+                        downloadImg(bitmap);
+                    }
+
+                } else {
+                    Toast.makeText(this, R.string.grant_write_permission_first,
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        }
     }
 
     public Prefs getPrefs() {

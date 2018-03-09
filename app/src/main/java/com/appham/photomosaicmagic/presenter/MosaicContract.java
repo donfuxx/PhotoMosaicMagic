@@ -23,11 +23,11 @@ public interface MosaicContract {
 
     interface View {
 
-        void hideLoadImgButton();
+        void hideButtons();
 
-        void showLoadImgButton();
+        void showButtons();
 
-        void toggleLoadImgButtonVisibility();
+        void toggleButtonVisibility();
 
         void setMosaicBitmap(Bitmap bitmap);
 
@@ -54,6 +54,8 @@ public interface MosaicContract {
         int getDisplayW();
 
         int getDisplayH();
+
+        Bitmap getMosaicBitmap();
 
         void onDestroy();
     }

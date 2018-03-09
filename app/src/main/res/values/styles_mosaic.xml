@@ -6,13 +6,27 @@
         <item name="android:layout_height">match_parent</item>
     </style>
 
-    <style name="ButtonLoadImage">
+    <style name="LayoutButtons">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="ButtonLoadImage" parent="ButtonBase">
         <item name="android:drawableLeft">@android:drawable/ic_menu_gallery</item>
+    </style>
+
+    <style name="ButtonDownload" parent="ButtonBase">
+        <item name="android:drawableLeft">@android:drawable/ic_menu_save</item>
+    </style>
+
+    <style name="ButtonBase">
         <item name="android:drawablePadding">5dp</item>
         <item name="android:alpha">.9</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:layout_alignParentBottom">true</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">10dp</item>

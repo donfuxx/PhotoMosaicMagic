@@ -16,4 +16,8 @@
     <string name="tile_height_title">Tile height</string>
     <string name="tile_width_title">Tile width</string>
     <string name="tile_type_title">Tile type</string>
+    <string name="download">Download</string>
+    <string name="load_image_first">You need to load an image first!</string>
+    <string name="grant_write_permission_first">You need to grant the write external storage permission to download the image!</string>
+    <string name="image_downloaded">The image has been downloaded to the folder: </string>
 </resources>

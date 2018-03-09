@@ -15,9 +15,21 @@
         android:id="@+id/imgMosaic"
         style="@style/ImageMosaic"/>
 
-    <Button
-        android:id="@+id/btnLoadImg"
-        android:text="@string/load_image"
-        style="@style/ButtonLoadImage"/>
+    <LinearLayout
+        android:id="@+id/layButtons"
+        style="@style/LayoutButtons">
+
+        <Button
+            android:id="@+id/btnLoadImg"
+            android:text="@string/load_image"
+            style="@style/ButtonLoadImage"/>
+
+        <Button
+            android:id="@+id/btnDownload"
+            android:text="@string/download"
+            style="@style/ButtonDownload"/>
+
+    </LinearLayout>
+
 
 </RelativeLayout>

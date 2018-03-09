@@ -44,19 +44,13 @@ public class MosaicPresenter implements MosaicContract.Presenter {
 
         Observable.fromCallable(() -> {
 
-            try {
+            // get sampled bitmap
+            Bitmap bitmap = BitmapUtils.decodeSampledStream(data,
+                    baseActivity.getContentResolver(), getDisplayW(), getDisplayH());
 
-                // get sampled bitmap
-                Bitmap bitmap = BitmapUtils.decodeSampledStream(data,
-                        baseActivity.getContentResolver(), getDisplayW(), getDisplayH());
-
-                // scale to fit tile sizes if needed
-                if (bitmap != null) {
-                    return BitmapUtils.scaleForTileSize(bitmap, tileWidth, tileHeight);
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
+            // scale to fit tile sizes if needed
+            if (bitmap != null) {
+                return BitmapUtils.scaleForTileSize(bitmap, tileWidth, tileHeight);
             }
 
             return null;
@@ -70,7 +64,7 @@ public class MosaicPresenter implements MosaicContract.Presenter {
                     }
 
                     sliceImage(bitmap, tileWidth, tileHeight);
-                });
+                }, Throwable::printStackTrace);
     }
 
     /**
@@ -88,7 +82,7 @@ public class MosaicPresenter implements MosaicContract.Presenter {
             return slicedBitmap;
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::calcAverageColors);
+                .subscribe(this::calcAverageColors, Throwable::printStackTrace);
 
         // set original image as the mosaic image
         mosaicBitmap = bitmap.copy(bitmap.getConfig(), true);
@@ -132,6 +126,7 @@ public class MosaicPresenter implements MosaicContract.Presenter {
                             calcAverageColors(resultSlicedBitmap);
                         } else { // if no more rows recycle the bitmap
                             resultSlicedBitmap.getBitmap().recycle();
+                            view.showButtons();
                         }
                     }
                 });
@@ -163,6 +158,11 @@ public class MosaicPresenter implements MosaicContract.Presenter {
     @Override
     public int getDisplayH() {
         return view.getDisplayH();
+    }
+
+    @Override
+    public Bitmap getMosaicBitmap() {
+        return mosaicBitmap;
     }
 
     @Override
