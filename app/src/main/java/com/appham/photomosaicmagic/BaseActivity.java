@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -69,6 +70,17 @@ public class BaseActivity extends AppCompatActivity {
             case R.id.action_settings:
 
                 showSettingsFragment();
+                return true;
+
+            // User clicked the share icon
+            case R.id.action_share:
+
+                Bitmap bitmap = mosaicFragment.getPresenter().getMosaicBitmap();
+                if (bitmap != null) {
+                    downloadImg(bitmap);
+                } else {
+                    share(null);
+                }
                 return true;
 
             // User clicked the load image icon
@@ -230,14 +242,15 @@ public class BaseActivity extends AppCompatActivity {
             stream.write(bytes);
             stream.close();
 
-            return folderName;
+            return file;
 
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe((folderName) -> {
+                .subscribe((file) -> {
                             Toast.makeText(this,
-                                    getString(R.string.image_downloaded) + " " + folderName,
+                                    getString(R.string.image_downloaded) + " " + file.getName(),
                                     Toast.LENGTH_LONG).show();
+                            share(Uri.fromFile(file));
                         },
                         Throwable::printStackTrace);
 
@@ -266,6 +279,18 @@ public class BaseActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    public void share(@Nullable Uri uri) {
+        Intent share = new Intent(Intent.ACTION_SEND);
+        share.setType(uri == null ? "text/plain" : "image/jpeg");
+        share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        share.putExtra(Intent.EXTRA_TEXT, getString(R.string.download_app) +
+                "https://play.google.com/store/apps/details?id=" + this.getPackageName());
+        if (uri != null) {
+            share.putExtra(Intent.EXTRA_STREAM, uri);
+        }
+        startActivity(Intent.createChooser(share, getString(R.string.app_name)));
     }
 
     public Prefs getPrefs() {
